@@ -41,7 +41,7 @@ class Rating:
                 'rating': {
                     'AttributeValueList': [
                         {
-                            'N': '4',
+                            'N': str(rating),
                         },
                     ],
                     'ComparisonOperator': 'GE',
