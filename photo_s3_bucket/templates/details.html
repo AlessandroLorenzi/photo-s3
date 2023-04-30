@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Photo: {{ name }}</title>
+</head>
+ 
+<body>
+    <h1>Photo: {{ name }}</h1>
+    <a href="/?folder={{ parent_folder }}">Go Back</a><br />
+
+    <a href="{{ full_url }}" target="_blank">
+        <img src="{{ thumbnail_url }}" style="padding: 1em" /> <br />
+    </a>
+    Voto: {% for x in range(vote) %}⭐{% endfor %} <br />
+    Tags: {% for tag in tags %} {{ tag }}{{ ", " if not loop.last else "" }} {% endfor %}<br />
+
+</body>
+ 
+</html>

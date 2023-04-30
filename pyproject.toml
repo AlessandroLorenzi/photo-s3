@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "photo-s3-bucket"
+version = "0.1.0"
+description = ""
+authors = ["Alessandro Lorenzi <alessandro.lorenzi@casavo.com>"]
+readme = "README.md"
+packages = [{include = "photo_s3_bucket"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+boto3 = "^1.26.121"
+httpx = "^0.24.0"
+flask = "^2.3.1"
+pillow = "^9.5.0"
+cachetools = "^5.3.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.3.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+    <title>Photos</title>
+</head>
+ 
+<body>
+    <h1>Photos</h1>
+    <a href="/?folder={{ parent_folder }}">Go Back</a><br />
+    {% if images |length > 0 %}
+        <h2>Images</h2>
+        {% for image in images %}
+            <a href="/details?photo={{ image.name }}">
+                <img src="{{ image.thumbnail_url }}" width=200 style="padding: 1em" />
+            </a>
+        {% endfor %}
+    {% endif %}
+
+    {% if folders |length > 0 %}
+    <h2>Folders</h2>
+        {% for folder in folders %}
+            <a href="/?folder={{ folder }}">{{folder}}</a><br />
+        {% endfor %}
+    {% endif %}
+
+</body>
+ 
+</html>
