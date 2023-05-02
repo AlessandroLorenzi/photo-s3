@@ -1,0 +1,23 @@
+<div id="vote">
+    Voto:
+    <button 
+    hx-put="/vote?set_rating=0&photo={{ name  }}"
+    hx-target="#vote"
+    class="btn"
+    >⛔</button>
+    {% for new_rating in range(rating) %}
+        <button 
+            hx-put="/vote?set_rating={{ new_rating +1  }}&photo={{ name  }}"
+            hx-target="#vote"
+            class="btn"
+        >💖</button>
+    {% endfor %}
+    {% for new_rating in range(5-rating) %}
+        <button 
+            hx-put="/vote?set_rating={{ new_rating + rating +1  }}&photo={{ name  }}"
+            hx-target="#vote"
+            class="btn"
+        >🤍</button>
+    {% endfor %}
+
+</div>

@@ -3,6 +3,7 @@
 from flask import Flask
 from photo_s3_bucket.pages.navigation import navigation
 from photo_s3_bucket.pages.details import details
+from photo_s3_bucket.pages.vote import vote
 
 app = Flask(__name__)
 
@@ -13,6 +14,10 @@ def get_navigation():
 @app.route("/details")
 def get_details():
     return details()
+
+@app.route("/vote", methods=['PUT'])
+def put_vote():
+    return vote()
 
 if __name__ == "__main__":
     app.run(
