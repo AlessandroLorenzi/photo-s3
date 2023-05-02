@@ -14,5 +14,10 @@ if __name__ == "__main__":
         image_lister,
         thumbnails_image_lister,
     )
-    for image in thumbnailizer.image_lister.list_images_all("2021/"):
+    print("Fetching images list")
+    images = image_lister.list_images_all("2021/")
+
+    print("Found {} images".format(len(images)))
+    print("Starting thumbnailization")
+    for image in images:
         thumbnailizer.generate(image)
