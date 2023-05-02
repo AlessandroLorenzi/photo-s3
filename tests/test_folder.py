@@ -1,7 +1,7 @@
-import boto3
 from dataclasses import dataclass
 from unittest.mock import MagicMock
 
+import boto3
 import httpx
 
 from photo_s3_bucket.libs.image_lister import ImageLister
