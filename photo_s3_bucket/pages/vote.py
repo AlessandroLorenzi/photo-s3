@@ -7,19 +7,30 @@ from photo_s3_bucket.libs.rating import Rating
 
 
 @inject
-def vote(
+def get_vote(
     rating_svc: Rating = Provide[Container.rating_svc],
 ):
     photo = request.args.get("photo", "")
-
-    set_rating = request.args.get("set_rating", False)
-    if set_rating:
-        rating_svc.set_rating(photo, int(set_rating))
 
     rating = rating_svc.get_rating(photo)
 
     return render_template(
         "vote.html",
         rating=rating,
+        name=photo,
+    )
+
+@inject
+def update_vote(
+    rating_svc: Rating = Provide[Container.rating_svc],
+):
+    photo = request.args.get("photo")
+
+    set_rating = int(request.args.get("set_rating"))
+    rating_svc.set_rating(photo, set_rating)
+
+    return render_template(
+        "vote.html",
+        rating=set_rating,
         name=photo,
     )

@@ -16,7 +16,8 @@
         <img src="{{ thumbnail_url }}" style="padding: 1em" /> <br />
     </a>
     
-    {% include "vote.html" %}
+    <div hx-get="/vote?photo={{ name }}" hx-trigger="load"></div>
+
     <br />
     Tags: {% for tag in tags %} {{ tag }}{{ ", " if not loop.last else "" }} {% endfor %}<br />
     </div>
