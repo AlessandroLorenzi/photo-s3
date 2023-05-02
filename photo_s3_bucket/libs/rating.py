@@ -1,4 +1,4 @@
-TABLE_NAME='alorenzi-pictures-test'
+TABLE_NAME = "alorenzi-pictures-votes"
 
 
 class Rating:
@@ -10,11 +10,11 @@ class Rating:
         self.dynamodb_client.put_item(
             TableName=self.table_name,
             Item={
-                'photo_name': {
-                    'S': photo_name,
+                "photo_name": {
+                    "S": photo_name,
                 },
-                'rating': {
-                    'N': str(rating),
+                "rating": {
+                    "N": str(rating),
                 },
             },
         )
@@ -23,28 +23,28 @@ class Rating:
         response = self.dynamodb_client.get_item(
             TableName=self.table_name,
             Key={
-                'photo_name': {
-                    'S': photo_name,
+                "photo_name": {
+                    "S": photo_name,
                 },
             },
         )
-        if 'Item' not in response:
+        if "Item" not in response:
             return 0
 
-        return int(response['Item']['rating']['N'])
+        return int(response["Item"]["rating"]["N"])
 
     def get_photos_by_rating(self, rating):
         response = self.dynamodb_client.scan(
             TableName=TABLE_NAME,
             ScanFilter={
-                'rating': {
-                    'AttributeValueList': [
+                "rating": {
+                    "AttributeValueList": [
                         {
-                            'N': str(rating),
+                            "N": str(rating),
                         },
                     ],
-                    'ComparisonOperator': 'GE',
+                    "ComparisonOperator": "GE",
                 },
             },
         )
-        return response['Items']
+        return response["Items"]
