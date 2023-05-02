@@ -1,11 +1,9 @@
 import boto3
 from dependency_injector import containers, providers
-from dependency_injector.ext import flask
-from dependency_injector.wiring import Provide, inject
-from flask import Flask
 
 from photo_s3_bucket.libs.image_lister import ImageLister
 from photo_s3_bucket.libs.rating import Rating
+from photo_s3_bucket.libs.tags_service import TagsService
 from photo_s3_bucket.libs.thumbnailizer import Thumbnailizer
 
 
@@ -43,4 +41,10 @@ class Container(containers.DeclarativeContainer):
         Rating,
         dynamodb_client,
         "alorenzi-pictures-votes",
+    )
+
+    tags_svc = providers.Singleton(
+        TagsService,
+        dynamodb_client,
+        "alorenzi-pictures-tags",
     )

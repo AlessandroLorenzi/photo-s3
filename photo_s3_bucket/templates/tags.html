@@ -1,0 +1,19 @@
+<div id="tags">
+    {% for tag in tags %}
+        {{ tag }}
+        <button 
+            class="btn"
+            hx-delete="/tags?tag={{ tag }}&photo={{ name }}"
+            hx-target="#tags"
+        >❌</span>
+        </button>
+    {% endfor %}
+    <form 
+        hx-post="/tags?photo={{ name }}"
+        hx-target="#tags"
+        method="post"
+    >
+        <input type="text" id="tag" name="tag" placeholder="Add a tag" />
+        <button class="btn">➕</button>
+    </form>
+</div>

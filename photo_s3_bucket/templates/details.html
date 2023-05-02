@@ -9,17 +9,16 @@
  
 <body>
     <div class="container">
-    <h1>Photo: {{ name }}</h1>
-    <a href="/?folder={{ parent_folder }}">Go Back</a><br />
+        <h1>Photo: {{ name }}</h1>
+        <a href="/?folder={{ parent_folder }}">Go Back</a><br />
 
-    <a href="{{ full_url }}" target="_blank">
-        <img src="{{ thumbnail_url }}" style="padding: 1em" /> <br />
-    </a>
+        <a href="{{ full_url }}" target="_blank">
+            <img src="{{ thumbnail_url }}" style="padding: 1em" /> <br />
+        </a>
+        
+        <div hx-get="/vote?photo={{ name }}" hx-trigger="load"></div>
+        <div hx-get="/tags?photo={{ name }}" hx-trigger="load"></div>
     
-    <div hx-get="/vote?photo={{ name }}" hx-trigger="load"></div>
-
-    <br />
-    Tags: {% for tag in tags %} {{ tag }}{{ ", " if not loop.last else "" }} {% endfor %}<br />
     </div>
 </body>
  

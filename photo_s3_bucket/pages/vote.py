@@ -2,7 +2,6 @@ from dependency_injector.wiring import Provide, inject
 from flask import render_template, request
 
 from photo_s3_bucket.container import Container
-from photo_s3_bucket.libs.image_lister import ImageLister
 from photo_s3_bucket.libs.rating import Rating
 
 
@@ -19,6 +18,7 @@ def get_vote(
         rating=rating,
         name=photo,
     )
+
 
 @inject
 def update_vote(
