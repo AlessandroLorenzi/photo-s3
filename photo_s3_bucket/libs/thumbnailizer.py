@@ -33,6 +33,9 @@ class Thumbnailizer:
         original_image_body = original_image["Body"]
 
         pillow_image = Image.open(original_image_body)
+        if "exif" not in pillow_image.info:
+            print(f"No EXIF data - skipping {image_path}")
+            return
         exif = pillow_image.info["exif"]
         pillow_image.thumbnail(self.size, Image.ANTIALIAS)
 

@@ -7,6 +7,7 @@ from photo_s3_bucket.pages.details import details
 from photo_s3_bucket.pages.navigation import navigation
 from photo_s3_bucket.pages.tags import add_tag, delete_tag, get_tags
 from photo_s3_bucket.pages.vote import get_vote, update_vote
+from photo_s3_bucket.pages.search import search
 
 if __name__ == "__main__":
     container = Container()
@@ -16,6 +17,7 @@ if __name__ == "__main__":
             "photo_s3_bucket.pages.details",
             "photo_s3_bucket.pages.vote",
             "photo_s3_bucket.pages.tags",
+            "photo_s3_bucket.pages.search",
         ]
     )
 
@@ -29,5 +31,6 @@ if __name__ == "__main__":
     app.add_url_rule("/tags", "get_tags", get_tags)
     app.add_url_rule("/tags", "delete_tag", delete_tag, methods=["DELETE"])
     app.add_url_rule("/tags", "add_tag", add_tag, methods=["POST"])
+    app.add_url_rule("/search", "search", search)
 
     app.run(host="0.0.0.0", debug=True)

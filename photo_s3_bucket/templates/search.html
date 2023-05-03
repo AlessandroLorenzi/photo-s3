@@ -13,19 +13,20 @@
     <div class="container">
 
         <h1>Photos</h1>
-        <a href="/?folder={{ parent_folder }}">Go Back</a><br />
-        <a href="/search">Search</a><br />
+        <a href="/">Go Back</a><br />
+        <form method="get"  >
+            <input type="text" id="tag" name="tag" placeholder="Search Tag" />
+            <button class="btn" >🔍</button>
+        </form>
         {% if images |length > 0 %}
             <h2>Images</h2>
             {% for image in images %}<a href="/details?photo={{ image.name }}">
                     <img src="{{ image.thumbnail_url }}" width=200 style="padding: 1em" />
                 </a>{% endfor %}
+        {% else %}
+            <h2>No Images</h2>
         {% endif %}
 
-        {% if folders |length > 0 %}
-        <h2>Folders</h2>
-            {% for folder in folders %}<a href="/?folder={{ folder }}">{{folder}}</a><br />{% endfor %}
-        {% endif %}
     </div>
 </body>
  

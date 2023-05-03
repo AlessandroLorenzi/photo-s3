@@ -15,7 +15,7 @@ if __name__ == "__main__":
         thumbnails_image_lister,
     )
     print("Fetching images list")
-    images = image_lister.list_images_all("2021/")
+    images = image_lister.list_images_all("")
 
     print("Found {} images".format(len(images)))
     print("Starting thumbnailization")
