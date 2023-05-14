@@ -4,6 +4,7 @@ from flask import render_template, request
 from photo_s3_bucket.container import Container
 from photo_s3_bucket.libs.tags_service import TagsService
 
+HTML_TEMPLATE = "tags.html"
 
 @inject
 def get_tags(
@@ -12,7 +13,7 @@ def get_tags(
     photo = request.args.get("photo", "")
 
     return render_template(
-        "tags.html",
+        HTML_TEMPLATE,
         tags=tags_svc.get_tags(photo),
         name=photo,
     )
@@ -28,7 +29,7 @@ def delete_tag(
     tags_svc.drop_tag(photo, tag)
 
     return render_template(
-        "tags.html",
+        HTML_TEMPLATE,
         tags=tags_svc.get_tags(photo),
         name=photo,
     )
@@ -45,7 +46,7 @@ def add_tag(
 
     print(tag)
     return render_template(
-        "tags.html",
+        HTML_TEMPLATE,
         tags=tags_svc.get_tags(photo),
         name=photo,
     )
