@@ -1,0 +1,15 @@
+{% for image in images %}
+<a href="/details?photo={{ image.name }}">
+    <img 
+        {% if loop.last %}
+            hx-trigger="revealed"
+            hx-swap="afterend"
+            hx-get="/gallery_segment?last_key={{ image.name }}"
+        {% endif %}
+        src="{{ image.thumbnail_url }}" 
+        width=200 
+        style="padding: 1em" 
+    />
+    
+</a>
+{% endfor %}
