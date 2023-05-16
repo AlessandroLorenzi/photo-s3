@@ -2,26 +2,26 @@ from dependency_injector.wiring import Provide, inject
 from flask import render_template, request
 
 from photo_s3_bucket.container import Container
-from photo_s3_bucket.libs.tags_service import TagsService
-from photo_s3_bucket.libs.image_lister import ImageLister
 
 from multiprocessing import Pool
 
+from photo_s3_bucket.repositories.tag import TagRepository
 
 @inject
 def generate_link_for(
-    image,
-    thumbnails_image_lister: ImageLister = Provide[Container.thumbnails_image_lister],
+    photo,
 ):
+    photo_name = photo.path
+    thumbnail_url = f"http://127.0.0.1:5000/photos/thumbnails/{photo.path}"
     return {
-        "name": image,
-        "thumbnail_url": thumbnails_image_lister.get_presigned_url(image),
+        "name": photo_name,
+        "thumbnail_url": thumbnail_url,
     }
 
 
 @inject
 def search(
-    tags_svc: TagsService = Provide[Container.tags_svc],
+    tag_repository: TagRepository = Provide[Container.tag_repository],
 ):
     tag = request.args.get("tag", "")
 
@@ -32,7 +32,7 @@ def search(
             images=[],
         )
 
-    images = tags_svc.get_photos(tag)
+    images = tag_repository.get_by_tag(tag)
 
     with Pool(processes=5) as p:
         images_links = p.map(generate_link_for, images)

@@ -2,8 +2,6 @@ from dependency_injector.wiring import Provide, inject
 from flask import render_template, request
 
 from photo_s3_bucket.container import Container
-from photo_s3_bucket.libs.image_lister import ImageLister
-from photo_s3_bucket.libs.rating import Rating
 from photo_s3_bucket.repositories.photo import PhotoRepository
 
 

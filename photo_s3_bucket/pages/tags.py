@@ -2,7 +2,6 @@ from dependency_injector.wiring import Provide, inject
 from flask import render_template, request
 
 from photo_s3_bucket.container import Container
-from photo_s3_bucket.libs.tags_service import TagsService
 from photo_s3_bucket.repositories.tag import TagRepository
 
 HTML_TEMPLATE = "tags.html"

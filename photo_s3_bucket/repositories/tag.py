@@ -14,6 +14,9 @@ class TagRepository:
 
     def get_by_path(self, path: str) -> list[Tag]:
         return self.session.query(Tag).filter_by(path=path)
+    
+    def get_by_tag(self, tag: str) -> list[Tag]:
+        return self.session.query(Tag).filter_by(tag=tag)
 
     def get_by_path_and_tag(self, path: str, tag: str) -> Tag:
         return self.session.query(Tag).filter_by(path=path, tag=tag).first()
