@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from flask import Flask
+from flask import Flask, send_from_directory
 
 from photo_s3_bucket.container import Container
 from photo_s3_bucket.pages.details import details
@@ -39,5 +39,10 @@ if __name__ == "__main__":
     app.add_url_rule(TAGS_ROUTE, "add_tag", add_tag, methods=["POST"])
 
     app.add_url_rule("/search", "search", search)
+
+    @app.route('/photos/<path:filename>')
+    def serve_photos(filename):
+        root_dir = '../test_pictures'
+        return send_from_directory(root_dir, filename)
 
     app.run(host="0.0.0.0", debug=True)

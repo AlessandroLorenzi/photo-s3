@@ -10,6 +10,9 @@ class PhotoRepository:
 
     def get_by_path(self, path: str) -> Photo:
         return self.session.query(Photo).filter_by(path=path).first()
+    
+    def get_all(self, *, page=0, limit=10) -> list[Photo]:
+        return self.session.query(Photo).order_by(Photo.date_taken.desc()).offset(page * limit).limit(limit).all()
 
     def create(self, name: str, path: str, date_taken: datetime.datetime) -> Photo:
         photo = Photo(name=name, path=path, date_taken=date_taken)

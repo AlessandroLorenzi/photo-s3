@@ -4,7 +4,7 @@
         {% if loop.last %}
             hx-trigger="revealed"
             hx-swap="afterend"
-            hx-get="/gallery_segment?last_key={{ image.name }}"
+            hx-get="/gallery_segment?page={{ next_page }}"
         {% endif %}
         src="{{ image.thumbnail_url }}" 
         width=200 

@@ -6,6 +6,20 @@ from photo_s3_bucket.libs.rating import Rating
 from photo_s3_bucket.libs.tags_service import TagsService
 from photo_s3_bucket.libs.thumbnailizer import Thumbnailizer
 
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+from photo_s3_bucket.repositories.photo import PhotoRepository
+from photo_s3_bucket.repositories.exif import ExifRepository
+
+database_url = "postgresql://photo_bucket:photo_bucket@localhost:5432/photo_bucket"
+engine = create_engine(database_url)
+Session = sessionmaker(bind=engine)
+
+
+photo_repository = PhotoRepository(Session())
+exif_repository = ExifRepository(Session())
+
 
 class Container(containers.DeclarativeContainer):
     config = providers.Configuration()
@@ -47,4 +61,13 @@ class Container(containers.DeclarativeContainer):
         TagsService,
         dynamodb_client,
         "alorenzi-pictures-tags",
+    )
+    session = providers.Singleton(Session)
+    photo_repository = providers.Singleton(
+        PhotoRepository,
+        session,
+    )
+    exif_repository = providers.Singleton(
+        ExifRepository,
+        session,
     )

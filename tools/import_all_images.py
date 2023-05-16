@@ -16,7 +16,7 @@ from photo_s3_bucket.repositories.exif import ExifRepository
 database_url = "postgresql://photo_bucket:photo_bucket@localhost:5432/photo_bucket"
 engine = create_engine(database_url)
 Session = sessionmaker(bind=engine)
-SOURCE_PATH = "./test_pictures/source"
+SOURCE_PATH = "./test_pictures/source/"
 ORIGINALS_PATH = "./test_pictures/originals"
 THUMBNAILS_PATH = "./test_pictures/thumbnails"
 
@@ -51,6 +51,7 @@ class ImportImages:
 class ImportImage:
     def __init__(self, image_path):
         self.image_path = image_path
+        self.clean_image_path = image_path.replace(SOURCE_PATH, "")
         self.exif = None
 
     def __call__(self):
@@ -106,23 +107,24 @@ class ImportImage:
         date_taken = self.exif["DateTaken"]
         file_name = self.image_path.split("/")[-1]
 
-        image_thumbnail_path = (
+        self.image_thumbnail_path = (
             f"{THUMBNAILS_PATH}/{date_taken.year}/{date_taken.month}/{date_taken.day}/"
         )
-        image_original_path = (
+        self.image_original_path = (
             f"{ORIGINALS_PATH}/{date_taken.year}/{date_taken.month}/{date_taken.day}/"
         )
-        self.create_directory_if_not_exists(image_thumbnail_path)
-        self.create_directory_if_not_exists(image_original_path)
+        self.clear_image_path = f"{date_taken.year}/{date_taken.month}/{date_taken.day}/{file_name}"
+        self.create_directory_if_not_exists(self.image_thumbnail_path)
+        self.create_directory_if_not_exists(self.image_original_path)
 
         with Image.open(self.image_path) as img:
             img.save(
-                f"{image_original_path}/{file_name}",
+                f"{self.image_original_path}/{file_name}",
                 exif=img.info["exif"],
             )
             img.thumbnail((512, 512))
             img.save(
-                f"{image_thumbnail_path}/{file_name}",
+                f"{self.image_thumbnail_path}/{file_name}",
                 exif=img.info["exif"],
             )
 
@@ -130,7 +132,7 @@ class ImportImage:
         date_taken = self.exif["DateTaken"]
         try:
             photo_repository.create(
-                path=self.image_path,
+                path=self.clear_image_path,
                 name=self.image_path.split("/")[-1],
                 date_taken=date_taken,
             )
@@ -140,7 +142,7 @@ class ImportImage:
 
         try:
             exif_repository.create(
-                path=self.image_path,
+                path=self.clear_image_path,
                 model=self.exif["Model"],
                 make=self.exif["Make"],
                 iso=self.exif["ISO"],
