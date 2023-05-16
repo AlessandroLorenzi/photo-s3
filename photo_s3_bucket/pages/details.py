@@ -22,5 +22,5 @@ def details(
         parent_folder="",
         thumbnail_url=thumbnail_url,
         full_url=full_url,
-        name=photo_name,
+        photo=photo,
     )

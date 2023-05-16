@@ -9,15 +9,16 @@
  
 <body>
     <div class="container">
-        <h1>Photo: {{ name }}</h1>
-        <a href="/?folder={{ parent_folder }}">Go Back</a><br />
+        <a href="/">Go Back</a><br />
+        <a href="/search">Search</a><br />
+        <h1>Photo: {{ photo.name }}</h1>
 
         <a href="{{ full_url }}" target="_blank">
             <img src="{{ thumbnail_url }}" style="padding: 1em" /> <br />
         </a>
         
-        <div hx-get="/vote?photo={{ name }}" hx-trigger="load"></div>
-        <div hx-get="/tags?photo={{ name }}" hx-trigger="load"></div>
+        <div hx-get="/vote?photo={{ photo.path }}" hx-trigger="load"></div>
+        <div hx-get="/tags?photo={{ photo.path }}" hx-trigger="load"></div>
     
     </div>
 </body>
