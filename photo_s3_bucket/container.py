@@ -12,6 +12,7 @@ from sqlalchemy.orm import sessionmaker
 from photo_s3_bucket.repositories.photo import PhotoRepository
 from photo_s3_bucket.repositories.exif import ExifRepository
 from photo_s3_bucket.repositories.rate import RateRepository
+from photo_s3_bucket.repositories.tag import TagRepository
 
 database_url = "postgresql://photo_bucket:photo_bucket@localhost:5432/photo_bucket"
 engine = create_engine(database_url)
@@ -63,7 +64,9 @@ class Container(containers.DeclarativeContainer):
         dynamodb_client,
         "alorenzi-pictures-tags",
     )
+    
     session = providers.Singleton(Session)
+
     photo_repository = providers.Singleton(
         PhotoRepository,
         session,
@@ -75,5 +78,10 @@ class Container(containers.DeclarativeContainer):
     
     rate_repository = providers.Singleton(
         RateRepository,
+        session,
+    )
+
+    tag_repository = providers.Singleton(
+        TagRepository,
         session,
     )

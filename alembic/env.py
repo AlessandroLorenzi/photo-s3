@@ -5,6 +5,8 @@ from sqlalchemy import pool
 
 from alembic import context
 
+from photo_s3_bucket.models.tag import Tag
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -22,7 +24,12 @@ from photo_s3_bucket.models.photo import Photo
 from photo_s3_bucket.models.exif import Exif
 from photo_s3_bucket.models.rate import Rate
 
-target_metadata = [Photo.metadata, Exif.metadata, Rate.metadata]
+target_metadata = [
+    Photo.metadata, 
+    Exif.metadata, 
+    Rate.metadata,
+    Tag.metadata,
+    ]
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
