@@ -11,6 +11,7 @@ from sqlalchemy.orm import sessionmaker
 
 from photo_s3_bucket.repositories.photo import PhotoRepository
 from photo_s3_bucket.repositories.exif import ExifRepository
+from photo_s3_bucket.repositories.rate import RateRepository
 
 database_url = "postgresql://photo_bucket:photo_bucket@localhost:5432/photo_bucket"
 engine = create_engine(database_url)
@@ -69,5 +70,10 @@ class Container(containers.DeclarativeContainer):
     )
     exif_repository = providers.Singleton(
         ExifRepository,
+        session,
+    )
+    
+    rate_repository = providers.Singleton(
+        RateRepository,
         session,
     )

@@ -14,7 +14,7 @@ def details(
     photo_name = request.args.get("photo", "")
     photo = photo_repository.get_by_path(photo_name)    
     thumbnail_url = f"http://127.0.0.1:5000/photos/thumbnails/{photo.path}"
-    full_url = f"http://127.0.0.1:5000/photos/thumbnails/{photo.path}"
+    full_url = f"http://127.0.0.1:5000/photos/originals/{photo.path}"
 
 
     return render_template(

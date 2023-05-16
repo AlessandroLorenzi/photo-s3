@@ -20,8 +20,9 @@ if config.config_file_name is not None:
 # target_metadata = mymodel.Base.metadata
 from photo_s3_bucket.models.photo import Photo
 from photo_s3_bucket.models.exif import Exif
+from photo_s3_bucket.models.rate import Rate
 
-target_metadata = [Photo.metadata, Exif.metadata]
+target_metadata = [Photo.metadata, Exif.metadata, Rate.metadata]
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

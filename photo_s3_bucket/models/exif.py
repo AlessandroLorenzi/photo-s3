@@ -18,5 +18,3 @@ class Exif(Base):
     rotation = Column(Integer)
     date_taken = Column(DateTime)
 
-    def __repr__(self):
-        return f"Exif(path='{self.path}', model='{self.model}', make='{self.make}', iso='{self.iso}', aperture='{self.aperture}', shutter_speed='{self.shutter_speed}', exposure_bias='{self.exposure_bias}', exposure_program='{self.exposure_program}', rotation='{self.rotation}', date_taken='{self.date_taken}')"
