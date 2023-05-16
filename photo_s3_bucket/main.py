@@ -28,7 +28,7 @@ if __name__ == "__main__":
 
     app.add_url_rule("/", "index", navigation)
     app.add_url_rule("/gallery_segment", "gallery_segment", gallery_segment)
-    
+
     app.add_url_rule("/details", "details", details)
     app.add_url_rule("/vote", "get_vote", get_vote)
     app.add_url_rule("/vote", "update_vote", update_vote, methods=["PUT"])

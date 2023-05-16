@@ -23,9 +23,15 @@ class ImageLister:
     @lru_cache
     def list_images_all(self, folder: str, next_continuation_token=None):
         if next_continuation_token:
-            images = self.s3_client.list_objects_v2(Bucket=self.bucket_name, Prefix=folder, ContinuationToken=next_continuation_token)
+            images = self.s3_client.list_objects_v2(
+                Bucket=self.bucket_name,
+                Prefix=folder,
+                ContinuationToken=next_continuation_token,
+            )
         else:
-            images = self.s3_client.list_objects_v2(Bucket=self.bucket_name, Prefix=folder)
+            images = self.s3_client.list_objects_v2(
+                Bucket=self.bucket_name, Prefix=folder
+            )
 
         contents = self.filter_images(images.get("Contents", {}))
         contents = [content["Key"] for content in contents]

@@ -13,9 +13,9 @@ def generate_link_for(
     image,
     thumbnails_image_lister: ImageLister = Provide[Container.thumbnails_image_lister],
 ):
-    photo_name= image["photo_name"]
+    photo_name = image["photo_name"]
     return {
-        "name":photo_name,
+        "name": photo_name,
         "thumbnail_url": thumbnails_image_lister.get_presigned_url(photo_name),
     }
 
@@ -30,9 +30,8 @@ def gallery_segment():
     if last_key is None:
         response = table.scan(Limit=LIMIT)
     else:
-        esk = {'photo_name': last_key}
+        esk = {"photo_name": last_key}
         response = table.scan(Limit=LIMIT, ExclusiveStartKey=esk)
-    
 
     with Pool(processes=5) as p:
         images = p.map(generate_link_for, response["Items"])

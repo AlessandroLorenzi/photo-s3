@@ -6,6 +6,7 @@ from photo_s3_bucket.libs.tags_service import TagsService
 
 HTML_TEMPLATE = "tags.html"
 
+
 @inject
 def get_tags(
     tags_svc: TagsService = Provide[Container.tags_svc],

@@ -7,6 +7,7 @@ from photo_s3_bucket.libs.image_lister import ImageLister
 
 from multiprocessing import Pool
 
+
 @inject
 def generate_link_for(
     image,
@@ -30,13 +31,13 @@ def search(
             "search.html",
             images=[],
         )
-    
+
     images = tags_svc.get_photos(tag)
 
     with Pool(processes=5) as p:
         images_links = p.map(generate_link_for, images)
-    
+
     return render_template(
         "search.html",
-       images=images_links,
+        images=images_links,
     )
